@@ -50,3 +50,12 @@ function displayBooks(){
 
 displayBooks();
 
+const addBookButton = document.querySelector('.add');
+const dialog = document.querySelector('dialog');
+const closeBookFormButton = document.querySelector('.close');
+addBookButton.addEventListener('click', () => {
+    dialog.showModal();
+})
+closeBookFormButton.addEventListener('click', () => {
+    dialog.close();
+})
