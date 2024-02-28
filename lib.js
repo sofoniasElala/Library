@@ -53,9 +53,39 @@ displayBooks();
 const addBookButton = document.querySelector('.add');
 const dialog = document.querySelector('dialog');
 const closeBookFormButton = document.querySelector('.close');
+const form = document.querySelector('form');
 addBookButton.addEventListener('click', () => {
     dialog.showModal();
 })
 closeBookFormButton.addEventListener('click', () => {
     dialog.close();
 })
+
+dialog.addEventListener('close', ()=>{
+    let newBook = new Book(document.querySelector('#title').value, document.querySelector('#author').value,
+    document.querySelector('#pages').value, document.querySelector('#read').checked);
+    myLibrary.push(newBook);
+    form.reset();
+    addBookToDisplay(newBook);
+})
+
+function addBookToDisplay(book){
+    const bookDiv = document.createElement('div');
+    bookDiv.setAttribute('class', 'book');
+    bookDiv.setAttribute('data-index', myLibrary.length - 1);
+    const title = document.createElement('p');
+    title.textContent = 'Title: ' + book.title;
+    const author = document.createElement('p');
+    author.textContent = 'Author: ' + book.author;
+    const pages = document.createElement('p');
+    pages.textContent = 'Pages: ' + book.pages;
+    const read = document.createElement('p');
+    read.textContent = 'Read: ' + (book.read ? 'Yes' : 'No');
+
+    bookDiv.appendChild(title);
+    bookDiv.appendChild(author);
+    bookDiv.appendChild(pages);
+    bookDiv.appendChild(read);
+
+    booksContainer.appendChild(bookDiv);
+}
