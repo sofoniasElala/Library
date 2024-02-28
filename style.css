@@ -14,7 +14,31 @@ body, html {
 .header {
     display: flex;
     justify-content: space-around;
+    align-items: center;
     padding: 15px;
     gap: 35px;
     border-style: dashed;
+}
+
+button.add{
+    border: none;
+    height: 35px;
+    padding: 5px 10px;
+    font-size: 18px;
+    border-radius: 9px;
+}
+
+.books{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(175px, 1fr));
+    gap: 40px;
+    justify-items: center;
+    padding: 10px;
+}
+
+.book {
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 5px 5px 7px #9DA89A;
 }

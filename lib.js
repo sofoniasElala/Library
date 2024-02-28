@@ -12,3 +12,41 @@ function Book(title, author, pages, read){
         return (`${this.title} by ${this.author}, ${this.pages} pages, ${readString}.`)
     }
 }
+
+/* testing data  --------------------------*/ 
+let book = new Book('Dune', 'Frank Herbert', 896, true);
+let book2 = new Book('Dune 2 ', 'Frank Herbert', 1896, true);
+let book3 = new Book('Dune 3', 'Frank Herbert', 2896, true);
+
+myLibrary[0] = book;
+myLibrary[1] = book2;
+myLibrary[2] = book3;
+/*   --------------------------     */ 
+
+const booksContainer = document.querySelector(".books");
+function displayBooks(){
+    for(let book of myLibrary){
+        let index = myLibrary.indexOf(book);
+        const bookDiv = document.createElement('div');
+        bookDiv.setAttribute('class', 'book');
+        bookDiv.setAttribute('data-index', index);
+        const title = document.createElement('p');
+        title.textContent = 'Title: ' + book.title;
+        const author = document.createElement('p');
+        author.textContent = 'Author: ' + book.author;
+        const pages = document.createElement('p');
+        pages.textContent = 'Pages: ' + book.pages;
+        const read = document.createElement('p');
+        read.textContent = 'Read: ' + (book.read ? 'Yes' : 'No');
+
+        bookDiv.appendChild(title);
+        bookDiv.appendChild(author);
+        bookDiv.appendChild(pages);
+        bookDiv.appendChild(read);
+
+        booksContainer.appendChild(bookDiv);
+    }
+}
+
+displayBooks();
+
