@@ -1,0 +1,20 @@
+body, html {
+    margin: 0;
+    height: 100vh;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 6fr;
+    border-style: solid;
+    height: 100%;
+}
+
+.header {
+    display: flex;
+    justify-content: space-around;
+    padding: 15px;
+    gap: 35px;
+    border-style: dashed;
+}
