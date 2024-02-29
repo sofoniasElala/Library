@@ -13,11 +13,15 @@ function Book(title, author, pages, read){
     }
 }
 
+Book.prototype.readStatus = false;
+
 /* testing data  --------------------------*/ 
 let book = new Book('Dune', 'Frank Herbert', 896, true);
 let book2 = new Book('Dune 2 ', 'Frank Herbert', 1896, true);
 let book3 = new Book('Dune 3', 'Frank Herbert', 2896, true);
-
+book.readStatus = true;
+book2.readStatus = true;
+book3.readStatus = true;
 myLibrary[0] = book;
 myLibrary[1] = book2;
 myLibrary[2] = book3;
@@ -43,11 +47,14 @@ closeBookFormButton.addEventListener('click', () => {
 })
 
 dialog.addEventListener('close', ()=>{
+    if(document.querySelector('#title').value){
     let newBook = new Book(document.querySelector('#title').value, document.querySelector('#author').value,
     document.querySelector('#pages').value, document.querySelector('#read').checked);
+    newBook.readStatus = document.querySelector('#read').checked;
     myLibrary.push(newBook);
     form.reset();
     addBookToDisplay(newBook);
+    }
 })
 
 function addBookToDisplay(book){
@@ -61,13 +68,23 @@ function createBook(book, index = myLibrary.length - 1){
         bookDiv.setAttribute('data-index', index);
         bookDiv.setAttribute('id', `_${index}`);
         const title = document.createElement('p');
-        title.textContent = 'Title: ' + book.title;
+        title.textContent = 'TITLE: ' + book.title;
         const author = document.createElement('p');
-        author.textContent = 'Author: ' + book.author;
+        author.textContent = 'AUTHOR: ' + book.author;
         const pages = document.createElement('p');
-        pages.textContent = 'Pages: ' + book.pages;
+        pages.textContent = 'PAGES: ' + book.pages;
         const read = document.createElement('p');
-        read.textContent = 'Read: ' + (book.read ? 'Yes' : 'No');
+        read.setAttribute('id', `_${index}-read`)
+        read.textContent = 'READ: ' + (book.read ? 'Yes' : 'No');
+        const changeReadStatus = document.createElement('button');
+        changeReadStatus.setAttribute('class', 'change');
+        changeReadStatus.setAttribute('data-index', index);
+        changeReadStatus.textContent = 'Change';
+
+
+        changeReadStatus.addEventListener('click', (e)=> {
+            changeStatus(e.target.dataset.index);
+        })
 
         const removeButton = document.createElement('button');
         removeButton.textContent = 'Remove';
@@ -86,9 +103,23 @@ function createBook(book, index = myLibrary.length - 1){
         bookDiv.appendChild(author);
         bookDiv.appendChild(pages);
         bookDiv.appendChild(read);
+        bookDiv.appendChild(changeReadStatus);
         bookDiv.appendChild(removeButton);
 
         booksContainer.appendChild(bookDiv);
+}
+
+
+function changeStatus(bookIndex){
+
+    
+    if(myLibrary[bookIndex].readStatus) {
+        myLibrary[bookIndex].readStatus = false;
+    } else {
+        myLibrary[bookIndex].readStatus = true;
+    }
+
+    document.querySelector(`#_${bookIndex}-read`).textContent =  'READ: ' + (myLibrary[bookIndex].readStatus ? 'Yes' : 'No');
 }
 
 displayBooks();
