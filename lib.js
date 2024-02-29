@@ -27,44 +27,9 @@ const booksContainer = document.querySelector(".books");
 function displayBooks(){
     for(let book of myLibrary){
         let index = myLibrary.indexOf(book);
-        const bookDiv = document.createElement('div');
-        bookDiv.setAttribute('class', `book`);
-        bookDiv.setAttribute('data-index', index);
-        bookDiv.setAttribute('id', `_${index}`);
-        const title = document.createElement('p');
-        title.textContent = 'Title: ' + book.title;
-        const author = document.createElement('p');
-        author.textContent = 'Author: ' + book.author;
-        const pages = document.createElement('p');
-        pages.textContent = 'Pages: ' + book.pages;
-        const read = document.createElement('p');
-        read.textContent = 'Read: ' + (book.read ? 'Yes' : 'No');
-
-        const removeButton = document.createElement('button');
-        removeButton.textContent = 'Remove';
-        removeButton.setAttribute('class', `remove`);
-        removeButton.setAttribute('data-index', index);
-        removeButton.setAttribute('id', `_${index}`);
-
-        removeButton.addEventListener('click', (e)=> {
-            const clickedButton = e.target;
-            console.log(+clickedButton.id);
-            myLibrary.splice(+clickedButton.dataset.index, 1);
-            document.querySelector(`#_${+clickedButton.dataset.index}`).remove();
-           
-        })
-
-        bookDiv.appendChild(title);
-        bookDiv.appendChild(author);
-        bookDiv.appendChild(pages);
-        bookDiv.appendChild(read);
-        bookDiv.appendChild(removeButton);
-
-        booksContainer.appendChild(bookDiv);
+        createBook(book, index);
     }
 }
-
-displayBooks();
 
 const addBookButton = document.querySelector('.add');
 const dialog = document.querySelector('dialog');
@@ -86,37 +51,44 @@ dialog.addEventListener('close', ()=>{
 })
 
 function addBookToDisplay(book){
-    const bookDiv = document.createElement('div');
-    bookDiv.setAttribute('class', `book`);
-    bookDiv.setAttribute('data-index', myLibrary.length - 1);
-    bookDiv.setAttribute('id', `_${myLibrary.length - 1}`);
-    const title = document.createElement('p');
-    title.textContent = 'Title: ' + book.title;
-    const author = document.createElement('p');
-    author.textContent = 'Author: ' + book.author;
-    const pages = document.createElement('p');
-    pages.textContent = 'Pages: ' + book.pages;
-    const read = document.createElement('p');
-    read.textContent = 'Read: ' + (book.read ? 'Yes' : 'No');
-
-    bookDiv.appendChild(title);
-    bookDiv.appendChild(author);
-    bookDiv.appendChild(pages);
-    bookDiv.appendChild(read);
-    const removeButton = document.createElement('button');
-    removeButton.textContent = 'Remove';
-    removeButton.setAttribute('class', `remove`);
-    removeButton.setAttribute('data-index', myLibrary.length - 1);
-    removeButton.setAttribute('id', `_${myLibrary.length - 1}`);
-
-    removeButton.addEventListener('click', (e)=> {
-        const clickedButton = e.target;
-        myLibrary.splice(+clickedButton.dataset.index, 1);
-        document.querySelector(`#_${clickedButton.dataset.index}`).remove();
-    })
-
-    booksContainer.appendChild(bookDiv);
+    createBook(book);
 }
 
 
+function createBook(book, index = myLibrary.length - 1){
+    const bookDiv = document.createElement('div');
+        bookDiv.setAttribute('class', `book`);
+        bookDiv.setAttribute('data-index', index);
+        bookDiv.setAttribute('id', `_${index}`);
+        const title = document.createElement('p');
+        title.textContent = 'Title: ' + book.title;
+        const author = document.createElement('p');
+        author.textContent = 'Author: ' + book.author;
+        const pages = document.createElement('p');
+        pages.textContent = 'Pages: ' + book.pages;
+        const read = document.createElement('p');
+        read.textContent = 'Read: ' + (book.read ? 'Yes' : 'No');
 
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove';
+        removeButton.setAttribute('class', `remove`);
+        removeButton.setAttribute('data-index', index);
+        removeButton.setAttribute('id', `_${index}`);
+
+        removeButton.addEventListener('click', (e)=> {
+            const clickedButton = e.target;
+            myLibrary.splice(+clickedButton.dataset.index, 1);
+            document.querySelector(`#_${+clickedButton.dataset.index}`).remove();
+           
+        })
+
+        bookDiv.appendChild(title);
+        bookDiv.appendChild(author);
+        bookDiv.appendChild(pages);
+        bookDiv.appendChild(read);
+        bookDiv.appendChild(removeButton);
+
+        booksContainer.appendChild(bookDiv);
+}
+
+displayBooks();
