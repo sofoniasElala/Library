@@ -29,6 +29,7 @@ button.add, .remove, .change {
     background-color: #c44900;
     border: none;
     border-radius: 9px;
+    cursor: pointer;
 }
 
 .books{
@@ -50,7 +51,7 @@ button.add, .remove, .change {
     height: 200px;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 5px 5px 7px #aa8e7a;
+    box-shadow: rgba(196, 73, 0, 0.4) 5px 5px, rgba(196, 73, 0, 0.3) 10px 10px, rgba(67, 37, 52, 0.8) 15px 15px;
 }
 
 h1 {
