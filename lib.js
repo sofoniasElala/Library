@@ -122,4 +122,22 @@ function changeStatus(bookIndex){
     document.querySelector(`#_${bookIndex}-read`).textContent =  'READ: ' + (myLibrary[bookIndex].readStatus ? 'Yes' : 'No');
 }
 
+window.onload = () => {
+    const title =  document.getElementById('title');
+    const author =  document.getElementById('author');
+        title.oninput = ()=> {
+            if(title.validity.tooLong){
+                title.setCustomValidity('Titles should shorter than 8 characters');
+            }
+    }
+    author.oninput = ()=> {
+        if(author.validity.tooShort){
+            author.setCustomValidity('Author names should at least be 3 characters');
+            author.style.backgroundColor = 'red';
+        } else {
+            author.style.backgroundColor = 'blue';
+        }
+    }
+}
+
 displayBooks();
